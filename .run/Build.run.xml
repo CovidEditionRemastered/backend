@@ -1,0 +1,5 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Build" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="C:\Users\kirinnee\Repository\Projects\HacknRoll2021\backend\SoapyBackend\build.ps1" scriptParameters="dev" workingDirectory="C:\Users\kirinnee\Repository\Projects\HacknRoll2021\backend\SoapyBackend">
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,0 +1,26 @@
+http:
+  routers:
+    dashboard:
+      rule: Host(`traefik.soapy.atomi.cloud`)
+      service: api@internal
+      tls:
+        certResolver: myresolver
+    adminer:
+      rule: "Host(`database.soapy.atomi.cloud`)"
+      service: 'admin'
+      tls:
+        certResolver: myresolver
+    core:
+      rule: "Host(`core.soapy.atomi.cloud`)"
+      service: 'core'
+      tls:
+        certResolver: myresolver
+  services:
+    admin:
+      loadBalancer:
+        servers:
+          - url: "http://adminer:8080"
+    core:
+      loadBalancer:
+        servers:
+          - url: "http://app"

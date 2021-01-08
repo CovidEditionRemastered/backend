@@ -1,0 +1,1 @@
+﻿& docker build . --tag "kirinnee/soapy-server:$($args[0])"

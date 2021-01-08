@@ -1,0 +1,43 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="docker stack" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="envVars">
+          <list>
+            <DockerEnvVarImpl>
+              <option name="name" value="DB_USER" />
+              <option name="value" value="user" />
+            </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="DB_PASSWORD" />
+              <option name="value" value="password" />
+            </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="ENV" />
+              <option name="value" value="dev" />
+            </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="RP_REPLICA" />
+              <option name="value" value="1" />
+            </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="APP_REPLICA" />
+              <option name="value" value="1" />
+            </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="AUTH0_DOMAIN" />
+              <option name="value" value="https://soapy.jp.auth0.com/" />
+            </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="AUTH0_AUD" />
+              <option name="value" value="https://back.localhost" />
+            </DockerEnvVarImpl>
+          </list>
+        </option>
+        <option name="commandLineOptions" value="--build" />
+        <option name="sourceFilePath" value="docker-compose.yml" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>

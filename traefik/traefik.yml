@@ -1,0 +1,20 @@
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+providers:
+  file:
+    filename: /etc/traefik/dyn.yml
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: kirinnee@atomi.cloud
+      storage: /etc/certs/acme.json
+      httpChallenge:
+        entryPoint: web
+api:
+  dashboard: true
+  
+accessLog: { }

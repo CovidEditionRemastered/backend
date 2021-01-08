@@ -1,0 +1,60 @@
+﻿version: '3.8'
+
+services:
+  adminer:
+    image: kirinnee/soapy-admin:$ENV
+    deploy:
+      restart_policy:
+        condition: any
+  db:
+    image: postgres:12
+    environment:
+      - COMPOSE_CONVERT_WINDOWS_PATHS=1
+      - PGDATA=/var/lib/postgresql/data/soapy
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+      - POSTGRES_USER=$DB_USER
+    volumes:
+      - soapy-db:/var/lib/postgresql/data/soapy
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      restart_policy:
+        condition: any
+  middleware:
+    image: kirinnee/soapy-middleware:$ENV
+    deploy:
+      restart_policy:
+        condition: any
+  app:
+    image: kirinnee/soapy-server:$ENV
+    environment:
+      AUTH0_DOMAIN: $AUTH0_DOMAIN
+      AUTH0_AUD: $AUTH0_AUD
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+      DB_PASSWORD: $DB_PASSWORD
+      DB_USER: $DB_USER
+    deploy:
+      replicas: $APP_REPLICA
+      restart_policy:
+        condition: any
+  rp:
+    image: kirinnee/soapy-traefik:$ENV
+    
+    deploy:
+      replicas: $RP_REPLICA
+      restart_policy:
+        condition: any
+    ports:
+      - "4001:80"
+    volumes:
+      - /etc/traefik/certs:/etc/certs/
+      - //var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  soapy-db:
+    external: true
+      
