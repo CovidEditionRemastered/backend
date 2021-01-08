@@ -26,6 +26,22 @@ namespace SoapyBackend.Controllers
             Db = db;
         }
 
+
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Guid>>> GetAllId()
+        {
+            var user = HttpContext.User.Identity?.Name;
+            if (user == null) return NotFound("User Not Found");
+
+            var devices = Db.Users.Select(x => x.DeviceId).Distinct();
+
+            var ids = await Db.Devices.Where(x => !devices.Contains(x.Id))
+                .Select(x => x.DeviceId)
+                .ToArrayAsync();
+            return Ok(ids);
+        }
+
         [HttpPost("user/{uuid}")]
         [Authorize]
         public async Task<ActionResult> ToggleFromUser(Guid uuid, bool state)
